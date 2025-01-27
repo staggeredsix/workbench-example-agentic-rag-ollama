@@ -1,10 +1,10 @@
 jupyterlab>3.0
-langchain-nvidia-ai-endpoints==0.2.0
-langchain-chroma==0.1.2
-langchain-community==0.2.10
-langchain-openai==0.1.17
-langchain==0.2.11
-langgraph==0.1.14
+langchain-nvidia-ai-endpoints==0.3.7
+langchain-chroma==0.2.0
+langchain-community==0.3.15
+langchain-openai==0.3.2
+langchain==0.3.15
+langgraph==0.2.67
 tavily-python==0.3.5
 beautifulsoup4==4.12.2
 lxml==5.2.2
