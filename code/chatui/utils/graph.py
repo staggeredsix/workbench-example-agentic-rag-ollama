@@ -187,7 +187,7 @@ def web_search(state):
 
     print("---WEB SEARCH---")
     question = state["question"]
-    documents = state["documents"]
+    documents = state["documents"] if "documents" in state else None
 
     # Web search
     web_search_tool = TavilySearchResults(k=3)
