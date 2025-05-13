@@ -49,7 +49,7 @@ RECURSION_LIMIT = int(os.getenv("RECURSION_LIMIT", DEFAULT_RECURSION_LIMIT))
 
 
 # Model identifiers with prefix
-LLAMA = "meta/llama3-70b-instruct"
+LLAMA = 'meta/llama-3.1-70b-instruct'  
 MISTRAL = "mistralai/mixtral-8x22b-instruct-v0.1"
 
 # check if the internal API is set
@@ -59,18 +59,28 @@ INTERNAL_API = os.getenv('INTERNAL_API', 'no')
 if INTERNAL_API == 'yes':
     LLAMA = 'nvdev/meta/llama-3.1-70b-instruct'
     MISTRAL = 'nvdev/mistralai/mixtral-8x22b-instruct-v0.1'
-else:
-    LLAMA = 'meta/llama-3.1-70b-instruct'  
-    MISTRAL = 'mistralai/mixtral-8x22b-instruct-v0.1'
 
 # URLs for default example docs for the RAG.
 doc_links = (
-    "https://github.com/NVIDIA/workbench-example-agentic-rag",
-    "https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/code/chatui/pages/converse.py",
-    "https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/agentic-rag-docs/self-host.md",
-    "https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/agentic-rag-docs/intermediate-edit-code.md",
-    "https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_agentic_rag/#graph",
-    "https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html"
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/windows.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/macos.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/ubuntu-local.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/ubuntu-remote.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/quickstart-basic.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/quickstart-cli.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/quickstart-environment.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/quickstart-environment-cli.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/quickstart-custom-app.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/quickstart-hybrid-rag.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/example-projects.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/remote.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/reference/components.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/reference/cli.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/troubleshooting.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/logging.html",
+    "https://raw.githubusercontent.com/NVIDIA/workbench-example-agentic-rag/refs/heads/main/README.md",
 )
 EXAMPLE_LINKS_LEN = len(doc_links)
 
@@ -197,6 +207,15 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
 
                     with gr.Column(scale=1, min_width=150):
                         _ = gr.ClearButton([msg, chatbot], value="Clear chat history")
+
+                # Sample questions that users can click on to use
+                with gr.Row(equal_height=True):
+                    sample_query_1 = gr.Button("What OS versions are supported by AI Workbench?", variant="secondary", size="sm", interactive=True)
+                    sample_query_2 = gr.Button("How do I get started with AI Workbench?", variant="secondary", size="sm", interactive=True)
+                
+                with gr.Row(equal_height=True):
+                    sample_query_3 = gr.Button("How do I fix an inaccessible remote Location?", variant="secondary", size="sm", interactive=True)
+                    sample_query_4 = gr.Button("How do I create a support bundle in AI Workbench CLI?", variant="secondary", size="sm", interactive=True)
             
             # Hidden column to be rendered when the user collapses all settings.
             with gr.Column(scale=1, min_width=100, visible=False) as hidden_settings_column:
@@ -1094,6 +1113,148 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
         """ This helper function builds out the submission function call when a user submits a query. """
         
         _my_build_stream = functools.partial(_stream_predict, client, app)
+
+        # Submit a sample query
+        sample_query_1.click(
+            _my_build_stream, [sample_query_1, 
+                               model_generator,
+                               model_router,
+                               model_retrieval,
+                               model_hallucination,
+                               model_answer,
+                               prompt_generator,
+                               prompt_router,
+                               prompt_retrieval,
+                               prompt_hallucination,
+                               prompt_answer,
+                               router_use_nim,
+                               retrieval_use_nim,
+                               generator_use_nim,
+                               hallucination_use_nim,
+                               answer_use_nim,
+                               nim_generator_ip,
+                               nim_router_ip,
+                               nim_retrieval_ip,
+                               nim_hallucination_ip,
+                               nim_answer_ip,
+                               nim_generator_port,
+                               nim_router_port,
+                               nim_retrieval_port,
+                               nim_hallucination_port,
+                               nim_answer_port,
+                               nim_generator_id,
+                               nim_router_id,
+                               nim_retrieval_id,
+                               nim_hallucination_id,
+                               nim_answer_id,
+                               chatbot], [msg, chatbot, actions]
+        )
+
+        sample_query_2.click(
+            _my_build_stream, [sample_query_2, 
+                               model_generator,
+                               model_router,
+                               model_retrieval,
+                               model_hallucination,
+                               model_answer,
+                               prompt_generator,
+                               prompt_router,
+                               prompt_retrieval,
+                               prompt_hallucination,
+                               prompt_answer,
+                               router_use_nim,
+                               retrieval_use_nim,
+                               generator_use_nim,
+                               hallucination_use_nim,
+                               answer_use_nim,
+                               nim_generator_ip,
+                               nim_router_ip,
+                               nim_retrieval_ip,
+                               nim_hallucination_ip,
+                               nim_answer_ip,
+                               nim_generator_port,
+                               nim_router_port,
+                               nim_retrieval_port,
+                               nim_hallucination_port,
+                               nim_answer_port,
+                               nim_generator_id,
+                               nim_router_id,
+                               nim_retrieval_id,
+                               nim_hallucination_id,
+                               nim_answer_id,
+                               chatbot], [msg, chatbot, actions]
+        )
+
+        sample_query_3.click(
+            _my_build_stream, [sample_query_3, 
+                               model_generator,
+                               model_router,
+                               model_retrieval,
+                               model_hallucination,
+                               model_answer,
+                               prompt_generator,
+                               prompt_router,
+                               prompt_retrieval,
+                               prompt_hallucination,
+                               prompt_answer,
+                               router_use_nim,
+                               retrieval_use_nim,
+                               generator_use_nim,
+                               hallucination_use_nim,
+                               answer_use_nim,
+                               nim_generator_ip,
+                               nim_router_ip,
+                               nim_retrieval_ip,
+                               nim_hallucination_ip,
+                               nim_answer_ip,
+                               nim_generator_port,
+                               nim_router_port,
+                               nim_retrieval_port,
+                               nim_hallucination_port,
+                               nim_answer_port,
+                               nim_generator_id,
+                               nim_router_id,
+                               nim_retrieval_id,
+                               nim_hallucination_id,
+                               nim_answer_id,
+                               chatbot], [msg, chatbot, actions]
+        )
+
+        sample_query_4.click(
+            _my_build_stream, [sample_query_4, 
+                               model_generator,
+                               model_router,
+                               model_retrieval,
+                               model_hallucination,
+                               model_answer,
+                               prompt_generator,
+                               prompt_router,
+                               prompt_retrieval,
+                               prompt_hallucination,
+                               prompt_answer,
+                               router_use_nim,
+                               retrieval_use_nim,
+                               generator_use_nim,
+                               hallucination_use_nim,
+                               answer_use_nim,
+                               nim_generator_ip,
+                               nim_router_ip,
+                               nim_retrieval_ip,
+                               nim_hallucination_ip,
+                               nim_answer_ip,
+                               nim_generator_port,
+                               nim_router_port,
+                               nim_retrieval_port,
+                               nim_hallucination_port,
+                               nim_answer_port,
+                               nim_generator_id,
+                               nim_router_id,
+                               nim_retrieval_id,
+                               nim_hallucination_id,
+                               nim_answer_id,
+                               chatbot], [msg, chatbot, actions]
+        )
+        
         msg.submit(
             _my_build_stream, [msg, 
                                model_generator,
