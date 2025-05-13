@@ -32,8 +32,8 @@ import mimetypes
 
 
 # Handling which API to use based on public vs NVIDIA internal
-# Check if the INTERNAL_API environment variable is set. Don't set if not NVIDIA employee, as you can't access them.
-INTERNAL_API = os.getenv('INTERNAL_API', '')
+# Check if the INTERNAL_API environment variable is set to yes. Don't set if not NVIDIA employee, as you can't access them.
+INTERNAL_API = os.getenv('INTERNAL_API', 'no')
 
 # Default model for public embedding
 EMBEDDINGS_MODEL = 'NV-Embed-QA'
@@ -46,8 +46,8 @@ CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", DEFAULT_CHUNK_SIZE))
 CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", DEFAULT_CHUNK_OVERLAP))
 
 
-if INTERNAL_API != '':
-    # NVIDIA employees must use internal endpoints
+if INTERNAL_API == 'yes':
+    # NVIDIA employees can use internal endpoints
     EMBEDDINGS_MODEL = 'nvdev/nvidia/nv-embedqa-e5-v5'
     print("[config] INTERNAL_API detected.")
     print(f"[config] Using internal embedding model: {EMBEDDINGS_MODEL}")
@@ -238,8 +238,8 @@ def _clear(
 
         if delete_all:
             for item in os.listdir(persist_directory):
-                if item.startswith("."):
-                    continue  # Skip hidden files like .gitkeep
+                if item.startswith(".") or item.startswith("chroma."):
+                    continue  # Skip hidden files like .gitkeep and the sqlite3 file
 
                 path = os.path.join(persist_directory, item)
                 try:

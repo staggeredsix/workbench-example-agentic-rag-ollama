@@ -53,12 +53,15 @@ LLAMA = "meta/llama3-70b-instruct"
 MISTRAL = "mistralai/mixtral-8x22b-instruct-v0.1"
 
 # check if the internal API is set
-INTERNAL_API = os.getenv('INTERNAL_API', '')
+INTERNAL_API = os.getenv('INTERNAL_API', 'no')
 
 # Modify model identifiers (to use the internal endpoints if that variable is set).
-if INTERNAL_API != '':
-    LLAMA = f'{INTERNAL_API}/meta/llama-3.1-70b-instruct'  
-    MISTRAL = f'{INTERNAL_API}/mistralai/mixtral-8x22b-instruct-v0.1'
+if INTERNAL_API == 'yes':
+    LLAMA = 'nvdev/meta/llama-3.1-70b-instruct'
+    MISTRAL = 'nvdev/mistralai/mixtral-8x22b-instruct-v0.1'
+else:
+    LLAMA = 'meta/llama-3.1-70b-instruct'  
+    MISTRAL = 'mistralai/mixtral-8x22b-instruct-v0.1'
 
 # URLs for default example docs for the RAG.
 doc_links = (
@@ -669,6 +672,22 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
         page.load(logger.read_logs, None, logs, every=1)
 
         """ These helper functions hide the expanded component model settings when the Hide tab is clicked. """
+
+        def _toggle_hide_all_settings():
+            return {
+                settings_column: gr.update(visible=False),
+                hidden_settings_column: gr.update(visible=True),
+            }
+
+        def _toggle_show_all_settings():
+            return {
+                settings_column: gr.update(visible=True),
+                settings_tabs: gr.update(selected=0),
+                hidden_settings_column: gr.update(visible=False),
+            }
+
+        hide_all_settings.select(_toggle_hide_all_settings, None, [settings_column, hidden_settings_column])
+        show_settings.click(_toggle_show_all_settings, None, [settings_column, settings_tabs, hidden_settings_column])
         
         def _toggle_hide_router():
             return {
@@ -907,7 +926,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
             progress(0.25, desc="Initializing Task")
             time.sleep(0.75)
             progress(0.5, desc="Uploading Docs")
-            database.upload(files)
+            database.upload_files(files)
             progress(0.75, desc="Cleaning Up")
             time.sleep(0.75)
             return {
