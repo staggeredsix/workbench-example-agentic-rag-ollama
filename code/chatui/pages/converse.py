@@ -126,11 +126,8 @@ _LOCAL_CSS = """
 }
 #accordion {
 }
-#rag-inputs .svelte-1gfkn6j {
-    color: #76b900;
-}
-#rag-inputs .svelte-s1r2yt {
-    color: #76b900;
+#rag-inputs .svelte-1gfkn6j .svelte-s1r2yt .svelte-cmf5ev {
+    color: #76b900 !important;
 }
 .mode-banner {
     font-size: 1.05rem;
@@ -229,7 +226,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                     interactive=False)
 
                         with gr.Column():
-                            step_1_btn = gr.Button("Step 1: Submit a sample query", elem_id="rag-inputs", variant="sm")
+                            step_1_btn = gr.Button("Step 1: Submit a sample query", elem_id="rag-inputs")
                             step_1 = gr.Markdown(
                                 """
                                 ### Purpose: Generate and evaluate a generic response&nbsp;<ins>without</ins>&nbsp;RAG
@@ -241,7 +238,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                 visible=True
                             )
 
-                            step_2_btn = gr.Button("Step 2: Upload the sample dataset", elem_id="rag-inputs", variant="sm")
+                            step_2_btn = gr.Button("Step 2: Upload the sample dataset", elem_id="rag-inputs")
                             step_2 = gr.Markdown(
                                 """
                                 ### Purpose: Populate the RAG database with useful context to augment responses
@@ -253,7 +250,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                 visible=False
                             )
 
-                            step_3_btn = gr.Button("Step 3: Resubmit the sample query", elem_id="rag-inputs", variant="sm")
+                            step_3_btn = gr.Button("Step 3: Resubmit the sample query", elem_id="rag-inputs")
                             step_3 = gr.Markdown(
                                 """
                                 ### Purpose: Generate and evaluate a generic response&nbsp;<ins>with</ins>&nbsp;added RAG context
@@ -264,7 +261,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                 visible=False
                             )
 
-                            step_4_btn = gr.Button("Step 4: Monitor the results", elem_id="rag-inputs", variant="sm")
+                            step_4_btn = gr.Button("Step 4: Monitor the results", elem_id="rag-inputs")
                             step_4 = gr.Markdown(
                                 """
                                 ### Purpose: Understand the actions the agent takes in generating responses
@@ -276,7 +273,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                 visible=False
                             )
 
-                            step_5_btn = gr.Button("Step 5: Next steps", elem_id="rag-inputs", variant="sm")
+                            step_5_btn = gr.Button("Step 5: Next steps", elem_id="rag-inputs")
                             step_5 = gr.Markdown(
                                 """
                                 ### Purpose: Customize the project to your own documents and datasets
