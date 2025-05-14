@@ -76,13 +76,14 @@ doc_links = (
     "https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/quickstart-hybrid-rag.html",
     "https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/example-projects.html",
     "https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/remote.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/projects/base-environments.html",
     "https://docs.nvidia.com/ai-workbench/user-guide/latest/reference/components.html",
     "https://docs.nvidia.com/ai-workbench/user-guide/latest/reference/cli.html",
     "https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/troubleshooting.html",
     "https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/logging.html",
     "https://raw.githubusercontent.com/NVIDIA/workbench-example-agentic-rag/refs/heads/main/README.md",
 )
-EXAMPLE_LINKS_LEN = len(doc_links)
+EXAMPLE_LINKS_LEN = 10
 
 EXAMPLE_LINKS = "\n".join(doc_links)
 
@@ -181,19 +182,12 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
         with gr.Row(equal_height=True):
 
             # Left Column will display the chatbot
-            with gr.Column(scale=15, min_width=350):
+            with gr.Column(scale=16, min_width=350):
 
-                # Diagram of the agentic websearch RAG workflow
-                with gr.Row():
-                    agentic_flow = gr.Image("/project/code/chatui/static/agentic-flow.png", 
-                                            show_label=False,
-                                            show_download_button=False,
-                                            interactive=False)
-                
                 # Main chatbot panel. 
                 with gr.Row(equal_height=True):
                     with gr.Column(min_width=350):
-                        chatbot = gr.Chatbot(show_label=False)
+                        chatbot = gr.Chatbot(show_label=False, height=500)
 
                 # Message box for user input
                 with gr.Row(equal_height=True):
@@ -206,61 +200,107 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                         )
 
                     with gr.Column(scale=1, min_width=150):
-                        _ = gr.ClearButton([msg, chatbot], value="Clear chat history")
+                        _ = gr.ClearButton([msg, chatbot], value="Clear Chat History")
 
                 # Sample questions that users can click on to use
                 with gr.Row(equal_height=True):
-                    sample_query_1 = gr.Button("What OS versions are supported by AI Workbench?", variant="secondary", size="sm", interactive=True)
-                    sample_query_2 = gr.Button("How do I get started with AI Workbench?", variant="secondary", size="sm", interactive=True)
+                    sample_query_1 = gr.Button("How do I add an integration in the CLI?", variant="secondary", size="sm", interactive=True)
+                    sample_query_2 = gr.Button("How do I fix an inaccessible remote Location?", variant="secondary", size="sm", interactive=True)
                 
                 with gr.Row(equal_height=True):
-                    sample_query_3 = gr.Button("How do I fix an inaccessible remote Location?", variant="secondary", size="sm", interactive=True)
-                    sample_query_4 = gr.Button("How do I create a support bundle in AI Workbench CLI?", variant="secondary", size="sm", interactive=True)
+                    sample_query_3 = gr.Button("What are the NVIDIA-provided default base environments?", variant="secondary", size="sm", interactive=True)
+                    sample_query_4 = gr.Button("How do I create a support bundle for troubleshooting?", variant="secondary", size="sm", interactive=True)
             
             # Hidden column to be rendered when the user collapses all settings.
             with gr.Column(scale=1, min_width=100, visible=False) as hidden_settings_column:
                 show_settings = gr.Button(value="< Expand", size="sm")
             
             # Right column to display all relevant settings
-            with gr.Column(scale=10, min_width=350) as settings_column:
+            with gr.Column(scale=12, min_width=350) as settings_column:
                 with gr.Tabs(selected=0) as settings_tabs:
 
-                    with gr.TabItem("Instructions", id=0) as instructions_tab:
-                        gr.Markdown(
-                            """
-                            ### Configure your API keys before using this application
+                    with gr.TabItem("Quickstart", id=0) as instructions_tab:
+                        
+                        # Diagram of the agentic websearch RAG workflow
+                        with gr.Row():
+                            agentic_flow = gr.Image("/project/code/chatui/static/agentic-flow.png", 
+                                                    show_label=False,
+                                                    show_download_button=False,
+                                                    interactive=False)
 
-                            ##### Use the Models tab to configure individual components
-                            - Click a component name (e.g. Router) to configure it
-                            - Select an API endpoint or a self-hosted endpoint (requires remote GPU)
-                            - Customize component behavior by changing the prompts
+                        with gr.Column():
+                            step_1_btn = gr.Button("Step 1: Submit a sample query", elem_id="rag-inputs", variant="sm")
+                            step_1 = gr.Markdown(
+                                """
+                                ### Purpose: Generate and evaluate a generic response&nbsp;<ins>without</ins>&nbsp;RAG
 
-                            ##### Use the Documents tab to create a RAG context
-                            - Webpages: Enter URLs of webpages for the context
-                            - Files: Use files (pdf, csv, .txt) for the context
-                            - Add to Context: Add documents to the context (can repeat)
-                            - Clear Context: Resets the context to empty
+                                * Ensure both ``NVIDIA_API_KEY`` and ``TAVILY_API_KEY`` are configured in AI Workbench.
+                                * Select a sample query from the chatbot on the left-hand side of the window.
+                                * Wait for the response to generate and evaluate the relevance of the response.
+                                """,
+                                visible=True
+                            )
 
-                            ##### Use the Monitor tab to see the agent in action
-                            - Actions Console: Conclusions and actions of the agent
-                            - Response Trace: Full text behind the response
+                            step_2_btn = gr.Button("Step 2: Upload the sample dataset", elem_id="rag-inputs", variant="sm")
+                            step_2 = gr.Markdown(
+                                """
+                                ### Purpose: Populate the RAG database with useful context to augment responses
 
-                            """
-                        )
+                                * Select the Documents tab on the right-hand side of this window.
+                                * Select **Add to Context** under the sample webpage dataset.
+                                * Wait for the upload to complete.
+                                """,
+                                visible=False
+                            )
+
+                            step_3_btn = gr.Button("Step 3: Resubmit the sample query", elem_id="rag-inputs", variant="sm")
+                            step_3 = gr.Markdown(
+                                """
+                                ### Purpose: Generate and evaluate a generic response&nbsp;<ins>with</ins>&nbsp;added RAG context
+
+                                * Select the same sample query from Step 1.
+                                * Wait for the response to generate and evaluate the relevance of the response.
+                                """,
+                                visible=False
+                            )
+
+                            step_4_btn = gr.Button("Step 4: Monitor the results", elem_id="rag-inputs", variant="sm")
+                            step_4 = gr.Markdown(
+                                """
+                                ### Purpose: Understand the actions the agent takes in generating responses
+
+                                * Select the Monitor tab on the right-hand side of this window.
+                                * Take a look at the actions taken by the agent under Actions Console.
+                                * Take a look at the latest response generation details under Response Trace.
+                                """,
+                                visible=False
+                            )
+
+                            step_5_btn = gr.Button("Step 5: Next steps", elem_id="rag-inputs", variant="sm")
+                            step_5 = gr.Markdown(
+                                """
+                                ### Purpose: Customize the project to your own documents and datasets
+
+                                * To customize, empty out the database and upload your own data under Documents.
+                                * Customize the Router prompt under the Models tab on the right-hand side of this window.
+                                * Submit a custom query to the RAG agent and evaluate the response.
+                                """,
+                                visible=False
+                            )
 
 
                     # Settings for each component model of the agentic workflow
                     with gr.TabItem("Models", id=1) as agent_settings:
                             gr.Markdown(
                                         """
-                                        ### Using NVIDIA API endpoints requires an NVIDIA API key
-                                        ##### Select and configure each component of the agentic RAG pipeline
+                                        ##### Use the Models tab to configure individual model components
                                         - Click a component below (e.g. Router) and select API or NIM 
                                         - For APIs, select the model from the dropdown
                                         - For self-hosted endpoints, see instructions [here](https://github.com/nv-twhitehouse/workbench-example-agentic-rag/blob/twhitehouse/april-16/agentic-rag-docs/self-host.md)
-                                        - (optional) Customize component behavior by configuring the prompt
+                                        - (optional) Customize component behavior by changing the prompts
                                         """
                             )
+                            gr.HTML('<hr style="border:1px solid #ccc; margin: 10px 0;">')
                                     
                             ########################
                             ##### ROUTER MODEL #####
@@ -637,19 +677,16 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                         
                     # Third tab item is for uploading to and clearing the vector database
                     with gr.TabItem("Documents", id=2) as document_settings:
-                        gr.Markdown("")
                         gr.Markdown(
-                            """
-                            ### Content creation requires an NVIDIA API key for the embedding model
-                            ##### Embed websites and files into a vector database to create a context. 
-                            - You can do this in multiple rounds. 
-                            - Context is stored until you clear it.
-
-                            ##### URLs in Webpages are examples related to prompt engineering.
-                            - They are **not** yet in the context
-                            - You can replace them with your own URLs. \n
+                            """                            
+                            ##### Use the Documents tab to create a RAG context
+                            - Webpages: Enter URLs of webpages for the context
+                            - Files: Use files (pdf, csv, .txt) for the context
+                            - Add to Context: Add documents to the context. Context is stored until you clear it.
+                            - Clear Context: Resets the context to empty
                             """
                             )
+                        gr.HTML('<hr style="border:1px solid #ccc; margin: 10px 0;">')
                         with gr.Tabs(selected=0) as document_tabs:
                             with gr.TabItem("Webpages", id=0) as url_tab:
                                 url_docs = gr.Textbox(value=EXAMPLE_LINKS,
@@ -671,11 +708,17 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
     
                     # Fourth tab item is for the actions output console. 
                     with gr.TabItem("Monitor", id=3) as console_settings:
-                        gr.Markdown("")
-                        gr.Markdown("Monitor agentic actions and view the pipeline trace of the latest response.\n")
+                        gr.Markdown(
+                            """
+                            ##### Use the Monitor tab to see the agent in action
+                            - Actions Console: View the actions taken by the agent
+                            - Response Trace: Full analysis behind the latest response
+                            """
+                            )
+                        gr.HTML('<hr style="border:1px solid #ccc; margin: 10px 0;">')
                         with gr.Tabs(selected=0) as console_tabs:
                             with gr.TabItem("Actions Console", id=0) as actions_tab:
-                                logs = gr.Textbox(show_label=False, lines=24, max_lines=24, interactive=False)
+                                logs = gr.Textbox(show_label=False, lines=18, max_lines=18, interactive=False)
                             with gr.TabItem("Response Trace", id=1) as trace_tab:
                                 actions = gr.JSON(
                                     scale=1,
@@ -690,7 +733,31 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
 
         page.load(logger.read_logs, None, logs, every=1)
 
-        """ These helper functions hide the expanded component model settings when the Hide tab is clicked. """
+        """ These helper functions hide all other quickstart steps when one step is expanded. """
+
+        def _toggle_quickstart_steps(step):
+            steps = ["Step 1: Submit a sample query",
+                     "Step 2: Upload the sample dataset",
+                     "Step 3: Resubmit the sample query",
+                     "Step 4: Monitor the results",
+                     "Step 5: Next steps"]
+            visible = [False, False, False, False, False]
+            visible[steps.index(step)] = True
+            return {
+                step_1: gr.update(visible=visible[0]),
+                step_2: gr.update(visible=visible[1]),
+                step_3: gr.update(visible=visible[2]),
+                step_4: gr.update(visible=visible[3]),
+                step_5: gr.update(visible=visible[4]),
+            }
+
+        step_1_btn.click(_toggle_quickstart_steps, [step_1_btn], [step_1, step_2, step_3, step_4, step_5])
+        step_2_btn.click(_toggle_quickstart_steps, [step_2_btn], [step_1, step_2, step_3, step_4, step_5])
+        step_3_btn.click(_toggle_quickstart_steps, [step_3_btn], [step_1, step_2, step_3, step_4, step_5])
+        step_4_btn.click(_toggle_quickstart_steps, [step_4_btn], [step_1, step_2, step_3, step_4, step_5])
+        step_5_btn.click(_toggle_quickstart_steps, [step_5_btn], [step_1, step_2, step_3, step_4, step_5])
+
+        """ These helper functions hide all settings when collapsed, and displays all settings when expanded. """
 
         def _toggle_hide_all_settings():
             return {
@@ -707,6 +774,8 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
 
         hide_all_settings.select(_toggle_hide_all_settings, None, [settings_column, hidden_settings_column])
         show_settings.click(_toggle_show_all_settings, None, [settings_column, settings_tabs, hidden_settings_column])
+
+        """ These helper functions hide the expanded component model settings when the Hide tab is clicked. """
         
         def _toggle_hide_router():
             return {
