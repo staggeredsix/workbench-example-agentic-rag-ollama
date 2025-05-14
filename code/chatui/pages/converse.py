@@ -243,7 +243,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                 """
                                 ### Purpose: Populate the RAG database with useful context to augment responses
 
-                                * Select the Documents tab on the right-hand side of this window.
+                                * Select the **Documents** tab on the right-hand side of the browser window.
                                 * Select **Add to Context** under the sample webpage dataset.
                                 * Wait for the upload to complete.
                                 """,
@@ -266,9 +266,9 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                 """
                                 ### Purpose: Understand the actions the agent takes in generating responses
 
-                                * Select the Monitor tab on the right-hand side of this window.
-                                * Take a look at the actions taken by the agent under Actions Console.
-                                * Take a look at the latest response generation details under Response Trace.
+                                * Select the **Monitor** tab on the right-hand side of the browser window.
+                                * Take a look at the actions taken by the agent under **Actions Console**.
+                                * Take a look at the latest response generation details under **Response Trace**.
                                 """,
                                 visible=False
                             )
@@ -278,8 +278,8 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                 """
                                 ### Purpose: Customize the project to your own documents and datasets
 
-                                * To customize, empty out the database and upload your own data under Documents.
-                                * Customize the Router prompt under the Models tab on the right-hand side of this window.
+                                * To customize, clear out the database and upload your own data under **Documents**.
+                                * Prompt-engineer the Router prompt to your RAG topic(s) under the **Models** tab.
                                 * Submit a custom query to the RAG agent and evaluate the response.
                                 """,
                                 visible=False
