@@ -279,7 +279,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                 ### Purpose: Customize the project to your own documents and datasets
 
                                 * To customize, clear out the database and upload your own data under **Documents**.
-                                * Prompt-engineer the Router prompt to your RAG topic(s) under the **Models** tab.
+                                * Configure the **Router Prompt** to your RAG topic(s) under the **Models** tab.
                                 * Submit a custom query to the RAG agent and evaluate the response.
                                 """,
                                 visible=False
