@@ -1,5 +1,6 @@
 *defaults.ContainerUser
 *bash.PreBuild
+*defaults.CA
 *cuda.CUDA
 *defaults.EnvVars
 *defaults.Readme
@@ -9,4 +10,5 @@
 *python.PipPackageManager
 *bash.PostBuild
 *jupyterlab.JupyterLab
+*vs_code.VSCode
 *tensorboard.Tensorboard
