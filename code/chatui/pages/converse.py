@@ -38,7 +38,7 @@ from chatui.utils.graph import TavilyAPIError
 
 # UI names and labels
 SELF_HOSTED_TAB_NAME = "Self-Hosted Endpoint"
-HOST_NAME = "Host IP Address/Name"
+HOST_NAME = "Local NIM or Remote IP/Hostname"
 HOST_PORT = "Host Port"
 HOST_MODEL = "Model Name"
 
@@ -333,9 +333,9 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         
                                         with gr.Row():
                                             nim_router_ip = gr.Textbox(
-                                                placeholder="10.123.45.678",
+                                                value = "agentic-rag-local-nim-1",
                                                 label=HOST_NAME,
-                                                info="IP Address running the microservice",
+                                                info="Local microservice OR IP address running a remote microservice",
                                                 elem_id="rag-inputs",
                                                 scale=2
                                             )
@@ -347,9 +347,9 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 scale=1
                                             )
                                         nim_router_id = gr.Textbox(
-                                            placeholder = "Model name goes here",
+                                            placeholder = "meta/llama-3.1-8b-instruct",
                                             label=HOST_MODEL,
-                                            info="Enter the exact model name as served by the container",
+                                            info="If none specified, defaults to: meta/llama-3.1-8b-instruct",
                                             elem_id="rag-inputs",
                                             interactive=True
                                         )
@@ -408,9 +408,9 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         
                                         with gr.Row():
                                             nim_retrieval_ip = gr.Textbox(
-                                                placeholder="10.123.45.678",
+                                                value = "agentic-rag-local-nim-1",
                                                 label=HOST_NAME,
-                                                info="IP Address running the microservice",
+                                                info="Local microservice OR IP address running a remote microservice",
                                                 elem_id="rag-inputs",
                                                 scale=2
                                             )
@@ -422,9 +422,9 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 scale=1
                                             )
                                         nim_retrieval_id = gr.Textbox(
-                                            placeholder = "Model name goes here",
+                                            placeholder = "meta/llama-3.1-8b-instruct",
                                             label=HOST_MODEL,
-                                            info="Enter the exact model name as served by the container",
+                                            info="If none specified, defaults to: meta/llama-3.1-8b-instruct",
                                             elem_id="rag-inputs",
                                             interactive=True
                                         )                                        
@@ -482,9 +482,9 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         
                                         with gr.Row():
                                             nim_generator_ip = gr.Textbox(
-                                                placeholder="10.123.45.678",
+                                                value = "agentic-rag-local-nim-1",
                                                 label=HOST_NAME,
-                                                info="IP Address running the microservice",
+                                                info="Local microservice OR IP address running a remote microservice",
                                                 elem_id="rag-inputs",
                                                 scale=2
                                             )
@@ -496,9 +496,9 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 scale=1
                                             )
                                         nim_generator_id = gr.Textbox(
-                                            placeholder = "Model name goes here",
+                                            placeholder = "meta/llama-3.1-8b-instruct",
                                             label=HOST_MODEL,
-                                            info="Enter the exact model name as served by the container",
+                                            info="If none specified, defaults to: meta/llama-3.1-8b-instruct",
                                             elem_id="rag-inputs",
                                             interactive=True
                                         )
@@ -556,9 +556,9 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         
                                         with gr.Row():
                                             nim_hallucination_ip = gr.Textbox(
-                                                placeholder="10.123.45.678",
+                                                value = "agentic-rag-local-nim-1",
                                                 label=HOST_NAME,
-                                                info="IP Address running the microservice",
+                                                info="Local microservice OR IP address running a remote microservice",
                                                 elem_id="rag-inputs",
                                                 scale=2
                                             )
@@ -570,9 +570,9 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 scale=1
                                             )
                                         nim_hallucination_id = gr.Textbox(
-                                            placeholder = "Model name goes here",
+                                            placeholder = "meta/llama-3.1-8b-instruct",
                                             label=HOST_MODEL,
-                                            info="Enter the exact model name as served by the container",
+                                            info="If none specified, defaults to: meta/llama-3.1-8b-instruct",
                                             elem_id="rag-inputs",
                                             interactive=True
                                         )
@@ -630,9 +630,9 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         
                                         with gr.Row():
                                             nim_answer_ip = gr.Textbox(
-                                                placeholder="10.123.45.678",
+                                                value = "agentic-rag-local-nim-1",
                                                 label=HOST_NAME,
-                                                info="IP Address running the microservice",
+                                                info="Local microservice OR IP address running a remote microservice",
                                                 elem_id="rag-inputs",
                                                 scale=2
                                             )
@@ -644,9 +644,9 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 scale=1
                                             )
                                         nim_answer_id = gr.Textbox(
-                                            placeholder = "Model name goes here",
+                                            placeholder = "meta/llama-3.1-8b-instruct",
                                             label=HOST_MODEL,
-                                            info="Enter the exact model name as served by the container",
+                                            info="If none specified, defaults to: meta/llama-3.1-8b-instruct",
                                             elem_id="rag-inputs",
                                             interactive=True
                                             )   
