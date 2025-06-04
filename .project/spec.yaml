@@ -20,15 +20,17 @@ layout:
 environment:
     base:
         registry: nvcr.io
-        image: nvidia/ai-workbench/python-cuda122:1.0.3
-        build_timestamp: "20231214221614"
-        name: Python with CUDA 12.2
+        image: nvidia/ai-workbench/python-basic:1.0.2
+        build_timestamp: "20241001182612"
+        name: Python Basic
         supported_architectures: []
-        cuda_version: "12.2"
-        description: A Python Base with CUDA 12.2
+        cuda_version: ""
+        description: A Python Base with Jupyterlab
         entrypoint_script: ""
         labels:
-            - cuda12.2
+            - ubuntu
+            - python3
+            - jupyterlab
         apps:
             - name: chat
               type: custom
