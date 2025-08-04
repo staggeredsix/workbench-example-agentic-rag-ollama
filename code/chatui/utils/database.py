@@ -36,7 +36,7 @@ import mimetypes
 INTERNAL_API = os.getenv('INTERNAL_API', 'no')
 
 # Default model for public embedding
-EMBEDDINGS_MODEL = 'NV-Embed-QA'
+EMBEDDINGS_MODEL = 'nvidia/nv-embedqa-e5-v5'
 
 # Set the chunk size and overlap for the text splitter. Uses defaults but allows them to be set as environment variables.
 DEFAULT_CHUNK_SIZE = 250
