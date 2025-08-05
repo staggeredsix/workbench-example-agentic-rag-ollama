@@ -11,8 +11,10 @@
 - **Look and Feel**: Change the agent and UI by editing the code yourself
 
 ### Inference Your Way
+
 - **Self-Hosted (default)**: Point to Ollama on your own GPUs
 - **Free Endpoints**: optionally use free endpoints on build.nvidia.com
+
 
 ## Get Started 
 
