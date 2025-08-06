@@ -1,8 +1,6 @@
-# Create your compose file. To learn more, please visit
-# https://docs.docker.com/reference/compose-file/
 services:
   ollama:
-    image: ollama/ollama:0.10.1
+    image: ollama/ollama:0.11.3
     ports:
       - "11434:11434"
     volumes:
@@ -15,6 +13,13 @@ services:
         sleep 5
         ollama pull llama3.1:8b-instruct-q8_0
         wait
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: ["gpu"]
 
 networks:
   default:
