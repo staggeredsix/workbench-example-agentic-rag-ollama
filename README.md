@@ -11,8 +11,10 @@
 - **Look and Feel**: Change the agent and UI by editing the code yourself
 
 ### Inference Your Way
-- **Free Endpoints**: use free endpoints on build.nvidia.com
-- **Self-Hosted**: Point to Ollama or NIM on your own GPUs
+
+- **Self-Hosted (default)**: Point to Ollama on your own GPUs
+- **Free Endpoints**: optionally use free endpoints on build.nvidia.com
+
 
 ## Get Started 
 
@@ -34,7 +36,7 @@
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
 2. **Clone** this repo with AI Workbench > [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
 3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
-4. Type in your question > Hit enter - answers come from free cloud endpoints.
+4. Type in your question > Hit enter - answers come from your local Ollama model.
 
 ## Details for the README Modes
 <details>
@@ -98,7 +100,7 @@ This application is a quick prototype and not a robust piece of software. So the
 Use these details if you want to modify the application, e.g. by configuring prompts, adding your own endpoints, changing the Gradio app or whatever else occurs to you.
 
 1. Set up a Linux box with an NVIDIA GPU and Docker.  
-2. Deploy an Ollama container or an NVIDIA NIM on that host.  
+2. Deploy an Ollama container on that host.
 3. Configure the chat app to use the self-hosted endpoint.
 
 
